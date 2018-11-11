@@ -1,0 +1,39 @@
+/* ===================
+  |                   |
+  |       Nav         |
+  |                   |
+  |===================|
+*/
+
+nav
+{
+  color: rgb(240, 233, 233);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: #34302D;
+  border-top: 4px solid #6DB33F;
+}
+
+nav .nav-item
+{
+  text-decoration: none;
+  color: rgb(240, 233, 233);
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 25px;
+}
+
+nav .nav-item:hover, nav .nav-item:focus, nav .nav-item:active
+{
+  background-color: #6DB33F;
+  cursor: pointer;
+}
+
+.active-link
+{
+  background-color: #6DB33F;
+}
