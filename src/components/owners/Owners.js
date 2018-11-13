@@ -1,41 +1,42 @@
 import React, { Component } from 'react'
 import Nav from '../common/Nav'
 import axios from 'axios'
-import Vet from './common/Vet'
 import '../../assets/css/index.css'
 import Loader from '../common/Loader'
+import Owner from './common/Owner'
 
-export default class Veterinarians extends Component {
+export default class Owners extends Component {
 
   state = {
-    vets: [],
+    owners: [],
+    pets: [],
     loading: false
   }
 
-  getVets = async () => {
+  getOwners = async () => {
     this.setState({ loading: true })
-    const result = await axios.get('http://localhost:8080/getVets')
+    const result = await axios.get('http://localhost:8080/getOwners')
     return await result
   }
 
-  setVets = () => {
-    let vets = []
+  setOwners = () => {
+    let owners = []
 
-    this.getVets()
+    this.getOwners()
       .then((result) => {
-        result.data.forEach(vet => {
-          vets.push(
-            <Vet key={vet.lastname} {...vet}/>
+        result.data.forEach(owner => {
+          owners.push(
+            <Owner key={owner.lastname} {...owner} />
           )
         })
 
-        this.setState({ vets, loading: false })
+        this.setState({ owners, loading: false })
       })
       .catch((err) => this.props.history.push('/error'))
   }
 
   componentWillMount() {
-    this.setVets()
+    this.setOwners()
   }
 
   render() {
@@ -45,16 +46,19 @@ export default class Veterinarians extends Component {
         <div className='home-subcontainer'>
           {!this.state.loading ?
             (<div>
-              <h3>Veterinarians</h3>
+              <h3>Owners</h3>
               <table>
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Specialities</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Telephone</th>
+                    <th>Pets</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.vets}
+                  {this.state.owners}
                 </tbody>
               </table>
             </div>)

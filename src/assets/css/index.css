@@ -3,6 +3,8 @@
   src: url(../fonts/Comfortaa-Regular.ttf);
   font-family: Comfortaa-Light;
   src: url(../fonts/Comfortaa-Light.ttf);
+  font-family: Quicksand-Book;
+  src: url(../fonts/Quicksand_Book.otf);
 }
 
 *:hover, *:focus, *:active, *:active:focus
@@ -67,8 +69,8 @@ body
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  font-family: 'Roboto', sans-serif;
-  color: rgb(97, 97, 97);
+  font-family: Quicksand-Book, sans-serif;
+  color: rgb(78, 76, 76);
   background-color: #F5F7F8;
 }
 
@@ -82,12 +84,14 @@ body
 .home-subcontainer
 {
   padding: 65px;
+  height: calc(100vh - 201px);
 }
 
 .home-subcontainer h3
 {
   font-size: 22px;
   font-weight: bold;
+  font-family: Comfortaa-Light;
 }
 
 .home-subcontainer img
@@ -95,3 +99,95 @@ body
   height: 300px;
   width: 500px;
 }
+
+/* ===================
+  |                   |
+  |      Center       |
+  |                   |
+  |===================|
+*/
+
+.home-subcontainer.error
+{
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* ===================
+  |                   |
+  |      Button       |
+  |                   |
+  |===================|
+*/
+
+.btn-default
+{
+  color: #f1f1f1;
+  background-color: #34302D;
+  border-color: #6db33f;
+  padding: 9px 11px 9px 11px;
+  font-family: Quicksand-Book, sans-serif;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active
+{
+  cursor: pointer;
+  border-color: #34302D;
+}
+
+/* ===================
+  |                   |
+  |      Table        |
+  |                   |
+  |===================|
+*/
+
+
+table
+{
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead
+{
+    background-color: #34302D;
+    color: rgb(240, 233, 233);
+    text-align: left;
+}
+
+thead th
+{
+    padding: 10px 0px 10px 10px;
+}
+
+tbody tr
+{
+    border-top: 1px solid #34302D;
+}
+
+tbody td
+{
+    padding: 10px;
+}
+
+table > tbody > tr:nth-of-type(odd)
+{
+    background-color: #eeeaea;
+}
+
+tr td:first-child, tr:not(.vets):first-child td:last-child
+{
+  font-weight: bolder;
+}
+
+
+
+
+
+

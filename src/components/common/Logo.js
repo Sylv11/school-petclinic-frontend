@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import '../../assets/css/logo.css';
+import React from 'react'
+import '../../assets/css/logo.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDog } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,7 +9,7 @@ const Logo = () => {
             <FontAwesomeIcon className='circle-icon' icon={faDog} />
             <span> Petclinic</span>
         </div>
-    );
+    )
 }
 
-export default Logo;
+export default Logo

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import '../../assets/css/index.css';
-import dogsAndCats from '../../assets/img/dogs_and_cats.png';
-import Nav from '../../components/common/Nav';
+import React, { Component } from 'react'
+import '../../assets/css/index.css'
+import Nav from '../../components/common/Nav'
+import PetsImage from '../common/PetsImage'
 
 export default class App extends Component {
   render() {
@@ -9,10 +9,10 @@ export default class App extends Component {
       <div className='home-container'>
         <Nav />
         <div className='home-subcontainer'>
-          <h3>Welcome in the petclinic tool !</h3>
-          <img src={dogsAndCats} alt='Dogs and cats' />
+          <h3>Welcome in the petclinic tool!</h3>
+          <PetsImage />
         </div>
       </div>
-    );
+    )
   }
 }
