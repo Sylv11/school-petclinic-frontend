@@ -130,6 +130,8 @@ body
   border-color: #6db33f;
   padding: 9px 11px 9px 11px;
   font-family: Quicksand-Book, sans-serif;
+  margin-left: 132px;
+  transition: 0.2s;
 }
 
 .btn-default:hover, .btn-default:focus, .btn-default:active
@@ -185,7 +187,6 @@ tr td:first-child, tr:not(.vets):first-child td:last-child
 {
   font-weight: bolder;
 }
-
 
 
 

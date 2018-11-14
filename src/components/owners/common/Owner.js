@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import Loader from '../../common/Loader'
 
 class Owner extends Component {
 
@@ -38,12 +39,13 @@ class Owner extends Component {
 
     render() {
         const style = {
-            color: '#6DB33F'
+            color: '#6DB33F',
+            cursor: 'pointer'
         }
 
         return (
             <tr className="vets">
-                <td style={style}>{`${this.props.firstname} ${this.props.lastname}`}</td>
+                <td style={style} onClick={() => this.props.history.push(`ownerInformations/${this.props.lastname}`)}>{`${this.props.firstname} ${this.props.lastname}`}</td>
                 <td>
                     <span>{this.props.address}</span>
                 </td>
@@ -54,7 +56,7 @@ class Owner extends Component {
                     <span>{this.props.telephone}</span>
                 </td>
                 <td>
-                    <span>{this.state.pets}</span>
+                    <span>{this.state.pets ? this.state.pets : <Loader height={16} width={16}/>}</span>
                 </td>
             </tr>
         )

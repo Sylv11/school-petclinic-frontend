@@ -23,10 +23,10 @@ export default class Owners extends Component {
               <input className='form-control' size="30" maxLength="80" name="lastName" defaultValue="" ref={inputValue => this.inputValue = inputValue}/>
             </div>
             <div className='form-group'>
-              <button className='btn-default' style={{marginLeft: '10.3%'}} type='button' value='text' name='findOwner' onClick={this.findOwner}>Find owner</button>
+              <button className='btn-default' type='button' value='text' name='findOwner' onClick={this.findOwner}>Find owner</button>
             </div>
           </form>
-          <button className='btn-default' type='button' value='text' name='goToAdd'>Add owner</button>
+          <button className='btn-default' type='button' value='text' name='goToAdd' onClick={() => this.props.history.push('/owners/new')}>Add owner</button>
         </div>
       </div>
     )

@@ -58,7 +58,7 @@ export default class Veterinarians extends Component {
                 </tbody>
               </table>
             </div>)
-            : (<Loader />)}
+            : (<Loader height={124} width={124}/>)}
         </div>
       </div>
     )
