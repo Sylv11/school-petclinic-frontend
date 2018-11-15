@@ -1,8 +1,6 @@
 @font-face {
-  font-family: Comfortaa-Regular;
-  src: url(../fonts/Comfortaa-Regular.ttf);
-  font-family: Comfortaa-Light;
-  src: url(../fonts/Comfortaa-Light.ttf);
+  font-family: Champagne-Limousin;
+  src: url(../fonts/Champagne-Limousin.ttf);
   font-family: Quicksand-Book;
   src: url(../fonts/Quicksand_Book.otf);
 }
@@ -72,6 +70,7 @@ body
   font-family: Quicksand-Book, sans-serif;
   color: rgb(78, 76, 76);
   background-color: #F5F7F8;
+  overflow: auto;
 }
 
 /* ===================
@@ -90,8 +89,7 @@ body
 .home-subcontainer h3
 {
   font-size: 22px;
-  font-weight: bold;
-  font-family: Comfortaa-Light;
+  font-family: Champagne-Limousin;
 }
 
 .home-subcontainer img
@@ -186,6 +184,11 @@ table > tbody > tr:nth-of-type(odd)
 tr td:first-child, tr:not(.vets):first-child td:last-child
 {
   font-weight: bolder;
+}
+
+.vets span#name:hover, .vets span#name:focus
+{
+  text-decoration: underline;
 }
 
 

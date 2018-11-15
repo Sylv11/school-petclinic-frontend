@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Nav from '../common/Nav'
 import axios from 'axios'
 import '../../assets/css/index.css'
 import Loader from '../common/Loader'
@@ -26,7 +25,7 @@ export default class Owners extends Component {
       .then((result) => {
         result.data.forEach(owner => {
           owners.push(
-            <Owner key={owner.lastname} {...owner} />
+            <Owner key={owner.telephone} {...owner} />
           )
         })
 
@@ -42,7 +41,6 @@ export default class Owners extends Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className='home-subcontainer'>
           {!this.state.loading ?
             (<div>

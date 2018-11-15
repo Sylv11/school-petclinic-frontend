@@ -1,24 +1,32 @@
 import React, { Component } from 'react'
-import Nav from '../common/Nav'
 import axios from 'axios'
 import Loader from '../common/Loader'
-import Modal from './common/Modal'
 import '../../assets/css/index.css'
 import '../../assets/css/modal.css'
 import classNames from 'classnames'
+import Pet from '../pets/Pet'
 
 export default class OwnerInformation extends Component {
 
     state = {
         owner: null,
+        pets: [],
         loading: false,
-        clicked: false
+        clickedOwner: false,
+        clickedPet: false,
+        noPets: false
     }
 
     getOwner = async () => {
         const { lastname } = this.props.match.params
         this.setState({ loading: true })
         const result = await axios.get(`http://localhost:8080/getOwnerByLastname/${lastname}`)
+        return await result
+    }
+
+    getPets = async () => {
+        if (!this.state.loading) this.setState({ loading: true })
+        const result = await axios.get(`http://localhost:8080/getPetsOfOwner/${this.state.owner.id}`)
         return await result
     }
 
@@ -34,19 +42,48 @@ export default class OwnerInformation extends Component {
             .catch((err) => this.props.history.push('/error'))
     }
 
-    getClassNames = () => {
+    setPets = () => {
+        this.getPets()
+            .then((result) => {
+                let pets = []
+
+                result.data.forEach(pet => {
+                    pets.push(
+                        <Pet key={pet.id} {...pet} />
+                    )
+                })
+
+                this.setState({ pets, loading: false })
+            })
+            .catch(err => {
+                this.setState({ loading: false, noPets: true })
+                this.title.style.display = 'none'
+            })
+            
+    }
+
+    getClassNamesOwner = () => {
         return classNames({
-            'hidden': !this.state.clicked,
-            'show':  this.state.clicked
+            'hidden': !this.state.clickedOwner,
+            'show': this.state.clickedOwner
         });
     }
 
-    toggleModal = () => {
-        this.setState({clicked: !this.state.clicked})
+    getClassNamesPet = () => {
+        return classNames({
+            'hidden': !this.state.clickedPet,
+            'show': this.state.clickedPet
+        });
     }
 
     componentWillMount() {
         this.setOwner()
+    }
+
+    componentDidUpdate() {
+        if (this.state.pets.length === 0 && !this.state.noPets) {
+            this.setPets()
+        }
     }
 
     render() {
@@ -56,12 +93,12 @@ export default class OwnerInformation extends Component {
             marginLeft: '0px'
         }
 
+        const styleTitle = {
+            marginTop: '15px'
+        }
+
         return (
             <div>
-                <div className={`modal ${this.getClassNames()}`}>
-                    <Modal toggleModal={this.toggleModal} setOwner={this.setOwner} toggleLoading={this.toggleLoading} loading={this.state.loading} {...this.state.owner} />
-                </div>
-                <Nav />
                 <div className='home-subcontainer'>
                     {!this.state.loading ?
                         (<div>
@@ -94,8 +131,14 @@ export default class OwnerInformation extends Component {
                                     </tr>
                                 </tbody>
                             </table>
-                            <button className='btn-default' style={style} type='button' value='text' name='editOwner' onClick={this.toggleModal}>Edit owner</button>
-                            <button className='btn-default' style={style} type='button' value='text' name='addNewPet'>Add new Pet</button>
+                            <button className='btn-default' style={style} type='button' value='text' name='editOwner' onClick={() => this.props.history.push(`/updateOwner/${this.state.owner.id}`)}>Edit owner</button>
+                            <button className='btn-default' style={style} type='button' value='text' name='addNewPet' onClick={() => this.props.history.push(`/addPet/${this.state.owner.id}`)}>Add new Pet</button>
+                            <h3 style={styleTitle} ref={title => this.title = title}>Pets and Visits</h3>
+                            <table>
+                                <tbody>
+                                    {this.state.pets}
+                                </tbody>
+                            </table>
                         </div>)
                         : (<Loader height={124} width={124} />)}
                 </div>

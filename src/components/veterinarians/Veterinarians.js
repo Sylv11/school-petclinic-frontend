@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Nav from '../common/Nav'
 import axios from 'axios'
 import Vet from './common/Vet'
 import '../../assets/css/index.css'
@@ -41,7 +40,6 @@ export default class Veterinarians extends Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className='home-subcontainer'>
           {!this.state.loading ?
             (<div>

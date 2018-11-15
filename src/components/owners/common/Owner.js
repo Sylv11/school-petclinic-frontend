@@ -29,7 +29,8 @@ class Owner extends Component {
                     }
                 });
                 this.setState({ pets, loading: false })
-            }).catch(err => this.setState({ pets: 'none' }))
+            })
+            .catch(err => this.setState({ pets: 'none' }))
     }
     
     componentWillMount = () => {
@@ -45,7 +46,7 @@ class Owner extends Component {
 
         return (
             <tr className="vets">
-                <td style={style} onClick={() => this.props.history.push(`ownerInformations/${this.props.lastname}`)}>{`${this.props.firstname} ${this.props.lastname}`}</td>
+                <td onClick={() => this.props.history.push(`ownerInformations/${this.props.lastname}`)}><span id='name' style={style} >{`${this.props.firstname} ${this.props.lastname}`}</span></td>
                 <td>
                     <span>{this.props.address}</span>
                 </td>

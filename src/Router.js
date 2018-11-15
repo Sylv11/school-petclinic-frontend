@@ -6,18 +6,23 @@ import Error from './components/error/Error'
 import { Route, Switch } from 'react-router-dom'
 import OwnerInformation from './components/owners/OwnerInformation';
 import Owners from './components/owners/Owners'
-import addOwner from './components/owners/addOwner'
+import Nav from './components/common/Nav'
+import UpdateOwner from './components/owners/UpdateOwner'
+import AddPet from './components/pets/AddPet'
+
 
 
 export default class Router extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <Switch>
           <Route exact path='/' component={App} />
           <Route exact path='/owners' component={FindOwners} />
-          <Route exact path='/owners/new' component={addOwner} />
           <Route exact path='/ownerInformations/:lastname' component={OwnerInformation} />
+          <Route exact path='/updateOwner/:id' component={UpdateOwner} />
+          <Route exact path='/addPet/:ownerId' component={AddPet} />
           <Route exact path='/listOwners' component={Owners} />
           <Route exact path='/veterinarians' component={Veterinarians} />
           <Route exact path='/error' component={Error} />
