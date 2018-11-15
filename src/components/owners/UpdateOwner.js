@@ -41,7 +41,12 @@ class UpdateOwner extends Component {
             await axios.put(`http://localhost:8080/updateOwner/${owner.id}`, owner)
             this.setOwner()
             this.setState({ loading:false })
-            this.props.history.push(`/ownerInformations/${owner.lastname}`)
+            this.props.history.push({
+                pathname: `/ownerInformations/${owner.lastname}`,
+                state: {
+                    ownerUpdated: true
+                }
+            })
         } catch (e) {
             this.props.history.push('/error')
         }

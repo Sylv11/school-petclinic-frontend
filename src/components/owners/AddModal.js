@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
+
 class AddModal extends Component {
 
 
@@ -21,7 +22,13 @@ class AddModal extends Component {
 
         try {
             await axios.post('http://localhost:8080/addOwner', owner)
-            this.props.history.push(`/ownerInformations/${owner.lastname}`)
+            this.props.history.push({
+                pathname: `/ownerInformations/${owner.lastname}`,
+                state: {
+                    ownerAdded: true
+                }
+            })
+            
         } catch (e) {
             this.props.history.push('/error')
         }

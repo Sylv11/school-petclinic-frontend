@@ -5,6 +5,7 @@ import '../../assets/css/index.css'
 import '../../assets/css/modal.css'
 import classNames from 'classnames'
 import Pet from '../pets/Pet'
+import { toast } from 'react-toastify';
 
 export default class OwnerInformation extends Component {
 
@@ -78,6 +79,35 @@ export default class OwnerInformation extends Component {
 
     componentWillMount() {
         this.setOwner()
+    }
+
+    componentDidMount() {
+        if(this.props.location.state) {
+            if(this.props.location.state.ownerAdded) {
+                toast("Owner created!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    className: 'toast-color'
+                });
+            }
+            if(this.props.location.state.ownerUpdated) {
+                toast("Owner updated!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    className: 'toast-color'
+                });
+            }
+            if(this.props.location.state.petAdded) {
+                toast("Pet added!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    className: 'toast-color'
+                });
+            }
+            if(this.props.location.state.petUpdated) {
+                toast("Pet updated!", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    className: 'toast-color'
+                });
+            }
+        }
     }
 
     componentDidUpdate() {

@@ -26,3 +26,20 @@ table dd
     border: none !important;
     box-shadow: none !important;
 }
+
+tbody div
+{
+    margin-top: 20px;
+}
+
+tbody div span
+{
+    color: #6DB33F;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+tbody div span:hover, tbody div span:focus, tbody div span:active
+{
+    text-decoration: underline;
+}

@@ -9,7 +9,9 @@ import Owners from './components/owners/Owners'
 import Nav from './components/common/Nav'
 import UpdateOwner from './components/owners/UpdateOwner'
 import AddPet from './components/pets/AddPet'
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UpdatePet from './components/pets/UpdatePet'
 
 
 export default class Router extends Component {
@@ -22,12 +24,14 @@ export default class Router extends Component {
           <Route exact path='/owners' component={FindOwners} />
           <Route exact path='/ownerInformations/:lastname' component={OwnerInformation} />
           <Route exact path='/updateOwner/:id' component={UpdateOwner} />
+          <Route exact path='/updatePet/:id' component={UpdatePet} />
           <Route exact path='/addPet/:ownerId' component={AddPet} />
           <Route exact path='/listOwners' component={Owners} />
           <Route exact path='/veterinarians' component={Veterinarians} />
           <Route exact path='/error' component={Error} />
           <Route component={Error} />
         </Switch>
+        <ToastContainer />
       </div>
     )
   }

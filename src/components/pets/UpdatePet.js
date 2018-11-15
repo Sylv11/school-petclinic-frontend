@@ -6,16 +6,30 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import Loader from '../common/Loader'
 
-class AddPet extends Component {
+class UpdatePet extends Component {
 
     state = {
+        pet: null,
         owner: null,
-        loading: false
+        loading: true
+    }
+
+    getPet = async () => {
+        const id = this.props.match.params.id
+        const result = await axios.get(`http://localhost:8080/getPet/${id}`)
+        return await result
+    }
+
+    setPet = () => {
+        this.getPet()
+            .then((result) => {
+                this.setState({ pet: result.data, loading: false })
+            })
+            .catch((err) => console.log(err))
     }
 
     getOwner = async () => {
-        const { ownerId } = this.props.match.params
-        this.setState({ loading: true })
+        const ownerId = this.state.pet.ownerId
         const result = await axios.get(`http://localhost:8080/getOwner/${ownerId}`)
         return await result
     }
@@ -23,36 +37,53 @@ class AddPet extends Component {
     setOwner = () => {
         this.getOwner()
             .then((result) => {
-                this.setState({ owner: result.data, loading: false })
+                this.setState({ owner: result.data })
             })
-            .catch((err) => this.props.history.push('/error'))
+            .catch((err) => console.log(err))
     }
 
-    addPet = async () => {
+    updatePet = async () => {
         const pet = {
-            ownerId: parseInt(this.props.match.params.ownerId),
+            id: this.state.pet.id,
+            ownerId: this.state.pet.ownerId,
             name: this.inputName.value,
-            dateBirth: this.inputBirthDate.value,
-            type: this.inputType.value
+            dateBirth: this.inputDateBirth.value,
+            type: this.inputType.value,
         }
 
         try {
-            await axios.post(`http://localhost:8080/addPet`, pet)
+            await axios.put(`http://localhost:8080//updatePet/${pet.id}`, pet)
             this.props.history.push({
                 pathname: `/ownerInformations/${this.state.owner.lastname}`,
                 state: {
-                    petAdded: true
+                    petUpdated: true
                 }
             })
-        } catch (e) {
-            this.props.history.push('/error')
+        } catch (err) {
+            console.log(err)
         }
     }
 
     componentWillMount = () => {
-      this.setOwner()
+        this.setPet()     
     }
-    
+
+    componentDidUpdate = () => {
+        if(!this.state.owner) {
+            this.setOwner()
+        }
+        
+        if(this.state.pet) {
+            switch(this.state.pet.type) {
+                case 'cat': this.inputType.selectedIndex = 1; break;
+                case 'dog': this.inputType.selectedIndex = 2; break;
+                case 'hamster': this.inputType.selectedIndex = 3; break;
+                case 'lizard': this.inputType.selectedIndex = 4; break;
+                case 'snake': this.inputType.selectedIndex = 5; break;
+                default: this.inputType.selectedIndex = 0; break;
+            }
+        }
+    }
 
     render() {
 
@@ -75,11 +106,11 @@ class AddPet extends Component {
                             </div>
                             <div className='form-group'>
                                 <label>Name</label>
-                                <input className='form-control' size="30" maxLength="80" placeholder="Name" name="firstname" defaultValue="" ref={inputName => this.inputName = inputName} />
+                                <input className='form-control' size="30" maxLength="80" name="name" defaultValue={this.state.pet.name} ref={inputName => this.inputName = inputName} />
                             </div>
                             <div className='form-group'>
                                 <label>Birth date</label>
-                                <input className='form-control' size="30" maxLength="80" placeholder="Birth date" name="lastName" defaultValue="" ref={inputBirthDate => this.inputBirthDate = inputBirthDate} />
+                                <input className='form-control' size="30" maxLength="80" name="birthDate" defaultValue={this.state.pet.dateBirth} ref={inputDateBirth => this.inputDateBirth = inputDateBirth} />
                             </div>
                             <div className="form-group">
                                 <label>Type</label>
@@ -93,7 +124,7 @@ class AddPet extends Component {
                                 </select>
                             </div>
                             <div className='form-group' style={{ textAlign: 'center' }}>
-                                <button className='btn-default' style={style} type='button' value='text' name='addPet' onClick={this.addPet}>Add Pet</button>
+                                <button className='btn-default' style={style} type='button' value='text' name='updatePet' onClick={this.updatePet}>Update Pet</button>
                             </div>
                         </form>
                     </div>
@@ -103,4 +134,4 @@ class AddPet extends Component {
     }
 }
 
-export default withRouter(AddPet)
+export default withRouter(UpdatePet)
