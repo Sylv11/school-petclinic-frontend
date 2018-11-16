@@ -77,6 +77,8 @@ export default class AddVisitPage extends Component {
                 try {
                     await axios.post('http://localhost:8080/addVisit', Visit);
                     this.setVisits()
+                    this.dateInput.value = ''
+                    this.descriptionInput.value = ''
                     toast("👍🏼 Visit added!", {
                         position: toast.POSITION.TOP_RIGHT,
                         className: 'toast-color'
