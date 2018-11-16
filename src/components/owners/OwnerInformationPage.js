@@ -60,7 +60,7 @@ export default class OwnerInformation extends Component {
                 this.setState({ loading: false, noPets: true })
                 this.title.style.display = 'none'
             })
-            
+
     }
 
     getClassNamesOwner = () => {
@@ -82,30 +82,61 @@ export default class OwnerInformation extends Component {
     }
 
     componentDidMount() {
-        if(this.props.location.state) {
-            if(this.props.location.state.ownerAdded) {
-                toast("Owner created!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    className: 'toast-color'
-                });
+        let emoji
+        if (this.props.location.state) {
+            switch (this.props.location.state.petType) {
+                case 'bird':
+                    this.emoji = '🦅'
+                    break
+
+                case 'cat':
+                    this.emoji = '🐱'
+                    break
+
+                case 'dog':
+                    this.emoji = '🐶'
+                    break
+
+                case 'hamster':
+                    this.emoji = '🐹'
+                    break
+
+                case 'lizard':
+                    this.emoji = '🦎'
+                    break
+
+                case 'snake':
+                    this.emoji = '🐍'
+                    break
+
+                default:
+                    this.emoji = '🐶'
             }
-            if(this.props.location.state.ownerUpdated) {
-                toast("Owner updated!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    className: 'toast-color'
-                });
-            }
-            if(this.props.location.state.petAdded) {
-                toast("Pet added!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    className: 'toast-color'
-                });
-            }
-            if(this.props.location.state.petUpdated) {
-                toast("Pet updated!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    className: 'toast-color'
-                });
+            if (this.props.location.state) {
+                if (this.props.location.state.ownerAdded) {
+                    toast("👱🏼 Owner created!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        className: 'toast-color'
+                    });
+                }
+                if (this.props.location.state.ownerUpdated) {
+                    toast("👱🏼 Owner updated!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        className: 'toast-color'
+                    });
+                }
+                if (this.props.location.state.petAdded) {
+                    toast(this.emoji + " Pet added!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        className: 'toast-color'
+                    });
+                }
+                if (this.props.location.state.petUpdated) {
+                    toast(this.emoji + " Pet updated!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        className: 'toast-color'
+                    });
+                }
             }
         }
     }

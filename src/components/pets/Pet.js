@@ -70,10 +70,10 @@ class Pet extends Component {
                                     <td>none</td>
                                 </tr>
                                 : this.state.visits}
-                            <div>
-                                <span onClick={(e) => this.props.history.push(`/updatePet/${this.props.id}`)}>Edit Pet</span>
-                                <span onClick={(e) => this.props.history.push(`/addVisit/${this.props.id}`)}>Add Visit</span>
-                            </div>
+                            <tr className='pet-button'>
+                                <td onClick={(e) => this.props.history.push(`/updatePet/${this.props.id}`)}><p>Edit Pet</p></td>
+                                <td onClick={(e) => this.props.history.push(`/addVisit/${this.props.id}`)}><p>Add Visit</p></td>
+                            </tr>
                         </tbody>
                     </table>
                 </td>

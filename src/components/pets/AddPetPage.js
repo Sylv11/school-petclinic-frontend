@@ -45,7 +45,8 @@ class AddPet extends Component {
                         this.props.history.push({
                             pathname: `/ownerInformations/${this.state.owner.lastname}`,
                             state: {
-                                petAdded: true
+                                petAdded: true,
+                                petType: pet.type
                             }
                         })
                     } else {

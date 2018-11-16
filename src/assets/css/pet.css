@@ -27,19 +27,21 @@ table dd
     box-shadow: none !important;
 }
 
-tbody div
+tbody .pet-button
 {
     margin-top: 20px;
 }
 
-tbody div span
+tbody .pet-button p
 {
     color: #6DB33F;
     margin-right: 15px;
     cursor: pointer;
+    display: inline;
+    font-weight: bolder;
 }
 
-tbody div span:hover, tbody div span:focus, tbody div span:active
+tbody .pet-button p:hover, tbody .pet-button p:focus, tbody .pet-button p:active
 {
     text-decoration: underline;
 }
