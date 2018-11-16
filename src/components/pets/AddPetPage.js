@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import '../../assets/css/index.css'
-import '../../assets/css/findOwner.css'
+import '../../assets/css/form.css'
 import '../../assets/css/pet.css'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import Loader from '../common/Loader'
+import Check from '../../Check'
 
 class AddPet extends Component {
 
@@ -37,22 +38,34 @@ class AddPet extends Component {
         }
 
         try {
-            await axios.post(`http://localhost:8080/addPet`, pet)
-            this.props.history.push({
-                pathname: `/ownerInformations/${this.state.owner.lastname}`,
-                state: {
-                    petAdded: true
+            if (Check.isString(pet.name, 3)) {
+                if (Check.isDate(pet.dateBirth)) {
+                    if (Check.checkType(pet.type)) {
+                        await axios.post(`http://localhost:8080/addPet`, pet)
+                        this.props.history.push({
+                            pathname: `/ownerInformations/${this.state.owner.lastname}`,
+                            state: {
+                                petAdded: true
+                            }
+                        })
+                    } else {
+                        Check.errorMessage('Invalid type!')
+                    }
+                } else {
+                    Check.errorMessage('Invalid date format!')
                 }
-            })
+            } else {
+                Check.errorMessage('name is not a string or to short!')
+            }
         } catch (e) {
             this.props.history.push('/error')
         }
     }
 
     componentWillMount = () => {
-      this.setOwner()
+        this.setOwner()
     }
-    
+
 
     render() {
 
@@ -60,7 +73,7 @@ class AddPet extends Component {
             width: '55%',
             marginLeft: '0px'
         }
-    
+
         return (
             <div className='home-subcontainer'>
                 {!this.state.loading ?

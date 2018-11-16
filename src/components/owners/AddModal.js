@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import '../../assets/css/index.css'
-import '../../assets/css/findOwner.css'
+import '../../assets/css/form.css'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import Check from '../../Check'
 
 
 class AddModal extends Component {
@@ -21,14 +22,33 @@ class AddModal extends Component {
         }
 
         try {
-            await axios.post('http://localhost:8080/addOwner', owner)
-            this.props.history.push({
-                pathname: `/ownerInformations/${owner.lastname}`,
-                state: {
-                    ownerAdded: true
+            if (Check.isString(owner.firstname, 3)) {
+                if (Check.isString(owner.lastname, 3)) {
+                    if (Check.checkLength(owner.address, 5)) {
+                        if (Check.isString(owner.city, 3)) {
+                            if (Check.isPhoneNumber(owner.telephone)) {
+                                await axios.post('http://localhost:8080/addOwner', owner)
+                                this.props.history.push({
+                                    pathname: `/ownerInformations/${owner.lastname}`,
+                                    state: {
+                                        ownerAdded: true
+                                    }
+                                })
+                            } else {
+                                Check.errorMessage('Invalid format phone number! Must have 10 ciphers')
+                            }
+                        } else {
+                            Check.errorMessage('City is not a string or too short!')
+                        }
+                    } else {
+                        Check.errorMessage('Address is too short!')
+                    }
+                } else {
+                    Check.errorMessage('Lastname in not a string or too short!')
                 }
-            })
-            
+            } else {
+                Check.errorMessage('Firstname in not a string or too short!')
+            }
         } catch (e) {
             this.props.history.push('/error')
         }
@@ -42,15 +62,15 @@ class AddModal extends Component {
                 <form method='put' onSubmit={(e) => { e.preventDefault(); }}>
                     <div className='form-group'>
                         <label>Firstname</label>
-                        <input className='form-control' size="30" maxLength="80" placeholder="Firstname" name="firstname" defaultValue="" ref={inputFirstname => this.inputFirstname = inputFirstname} />
+                        <input className='form-control' size="30" maxLength="80" placeholder="John" name="firstname" defaultValue="" ref={inputFirstname => this.inputFirstname = inputFirstname} />
                     </div>
                     <div className='form-group'>
                         <label>Lastname</label>
-                        <input className='form-control' size="30" maxLength="80" placeholder="Lastname" name="lastName" defaultValue="" ref={inputLastname => this.inputLastname = inputLastname} />
+                        <input className='form-control' size="30" maxLength="80" placeholder="Doe" name="lastName" defaultValue="" ref={inputLastname => this.inputLastname = inputLastname} />
                     </div>
                     <div className='form-group'>
                         <label>Address</label>
-                        <input className='form-control' size="30" maxLength="80" placeholder="Address" name="address" defaultValue="" ref={inputAddress => this.inputAddress = inputAddress} />
+                        <input className='form-control' size="30" maxLength="80" placeholder="12 street" name="address" defaultValue="" ref={inputAddress => this.inputAddress = inputAddress} />
                     </div>
                     <div className='form-group'>
                         <label>City</label>
@@ -58,7 +78,7 @@ class AddModal extends Component {
                     </div>
                     <div className='form-group'>
                         <label>Telephone</label>
-                        <input className='form-control' size="30" maxLength="80" placeholder="Telephone" name="telephone" defaultValue="" ref={inputTelephone => this.inputTelephone = inputTelephone} />
+                        <input className='form-control' size="30" maxLength="80" placeholder="0111111111" name="telephone" defaultValue="" ref={inputTelephone => this.inputTelephone = inputTelephone} />
                     </div>
                     <div className='form-group' style={{ textAlign: 'center' }}>
                         <button className='btn-default' type='button' value='text' name='addOwner' onClick={this.addOwner}>Add Owner</button>

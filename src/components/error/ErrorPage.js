@@ -2,7 +2,7 @@ import React from 'react'
 import PetsImage from '../common/PetsImage'
 import '../../assets/css/index.css'
 
-const Error = () => {
+const ErrorPage = () => {
     return (
         <div>
             <div className='home-subcontainer error'>
@@ -13,4 +13,4 @@ const Error = () => {
     )
 }
 
-export default Error
+export default ErrorPage

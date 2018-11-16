@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import '../../assets/css/index.css'
-import '../../assets/css/findOwner.css'
+import '../../assets/css/form.css'
 import './AddModal'
 import classNames from 'classnames'
 import AddModal from './AddModal'
+import Check from '../../Check'
 
 
 export default class Owners extends Component {
@@ -25,7 +26,13 @@ export default class Owners extends Component {
 
   findOwner = () => {
     let lastname = this.inputValue.value
-    if (lastname) this.props.history.push(`/ownerInformations/${lastname}`)
+    if (lastname) {
+      if (Check.isString(lastname, 3)) {
+        this.props.history.push(`/ownerInformations/${lastname}`)
+      } else {
+        Check.errorMessage('lastname is not a string or too short!')
+      }
+    }
     else this.props.history.push(`/listOwners`)
   }
 

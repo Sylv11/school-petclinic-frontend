@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import '../../assets/css/index.css'
-import PetsImage from '../common/PetsImage'
+import './assets/css/index.css'
+import PetsImage from './components/common/PetsImage'
 
 export default class App extends Component {
   render() {

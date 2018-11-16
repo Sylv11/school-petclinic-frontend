@@ -2,41 +2,43 @@ import React, { Component } from 'react'
 import '../../assets/css/pet.css'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
+import Visit from '../visits/common/Visit'
 
 class Pet extends Component {
 
     state = {
-        visits: []
+        visits: [],
+        noVisit: false
     }
 
     getVisits = async () => {
-        const result = await axios.get(`http://localhost:8080/getVisitsOfPet/${this.props.id}`)
-        return await result
+        try {
+            const result = await axios.get(`http://localhost:8080/getVisitsOfPet/${this.props.id}`)
+            return await result
+        } catch (err) { }
+
     }
 
     setVisits = () => {
         this.getVisits()
-        .then((result) => {
-            let visits = []
+            .then((result) => {
+                let visits = []
 
-            result.data.forEach(visit => {
-                visits.push(
-                    <tr key={visit.id}>
-                        <td>{visit.date}</td>
-                        <td>{visit.description}</td>
-                    </tr>
-                )
-            });
+                result.data.forEach(visit => {
+                    visits.push(
+                        <Visit key={visit.id} date={visit.date} description={visit.description} />
+                    )
+                });
 
-            this.setState({visits})
-        })
-        .catch((err) => {}) 
+                this.setState({ visits })
+            })
+            .catch((err) => { this.setState({ noVisit: true }) })
     }
 
     componentWillMount = () => {
-      this.setVisits()
+        this.setVisits()
     }
-    
+
 
     render() {
         return (
@@ -45,10 +47,10 @@ class Pet extends Component {
                     <dl>
                         <dt>Name</dt>
                         <dd>{this.props.name}</dd>
-                        <br/>
+                        <br />
                         <dt>Birth date</dt>
                         <dd>{this.props.dateBirth}</dd>
-                        <br/>
+                        <br />
                         <dt>Type</dt>
                         <dd>{this.props.type}</dd>
                     </dl>
@@ -62,10 +64,15 @@ class Pet extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.visits}
+                            {this.state.noVisit ?
+                                <tr>
+                                    <td>none</td>
+                                    <td>none</td>
+                                </tr>
+                                : this.state.visits}
                             <div>
                                 <span onClick={(e) => this.props.history.push(`/updatePet/${this.props.id}`)}>Edit Pet</span>
-                                <span>Add Visit</span>
+                                <span onClick={(e) => this.props.history.push(`/addVisit/${this.props.id}`)}>Add Visit</span>
                             </div>
                         </tbody>
                     </table>

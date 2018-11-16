@@ -3,6 +3,7 @@ import '../../assets/css/modal.css'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import Loader from '../common/Loader'
+import Check from '../../Check'
 
 class UpdateOwner extends Component {
 
@@ -37,16 +38,36 @@ class UpdateOwner extends Component {
         }
 
         try {
-            this.setState({ loading:true })
-            await axios.put(`http://localhost:8080/updateOwner/${owner.id}`, owner)
-            this.setOwner()
-            this.setState({ loading:false })
-            this.props.history.push({
-                pathname: `/ownerInformations/${owner.lastname}`,
-                state: {
-                    ownerUpdated: true
+            if (Check.isString(owner.firstname, 3)) {
+                if (Check.isString(owner.lastname, 3)) {
+                    if (Check.checkLength(owner.address, 5)) {
+                        if (Check.isString(owner.city, 3)) {
+                            if (Check.isPhoneNumber(owner.telephone)) {
+                                this.setState({ loading: true })
+                                await axios.put(`http://localhost:8080/updateOwner/${owner.id}`, owner)
+                                this.setOwner()
+                                this.setState({ loading: false })
+                                this.props.history.push({
+                                    pathname: `/ownerInformations/${owner.lastname}`,
+                                    state: {
+                                        ownerUpdated: true
+                                    }
+                                })
+                            } else {
+                                Check.errorMessage('Invalid format phone number! Must have 10 ciphers')
+                            }
+                        } else {
+                            Check.errorMessage('City is not a string or too short!')
+                        }
+                    } else {
+                        Check.errorMessage('Address is too short!')
+                    }
+                } else {
+                    Check.errorMessage('Lastname in not a string or too short!')
                 }
-            })
+            } else {
+                Check.errorMessage('Firstname in not a string or too short!')
+            }
         } catch (e) {
             this.props.history.push('/error')
         }

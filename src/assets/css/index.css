@@ -8,7 +8,6 @@
 *:hover, *:focus, *:active, *:active:focus
 {
   outline: 0 !important;
-  user-select: none;
 }
 
 *:focus
@@ -19,41 +18,6 @@
 a, a:hover 
 {
   cursor: pointer;
-}
-
-.no-margin
-{
-  margin: 0 !important;
-}
-
-.no-margin-left
-{
-  margin-left: 0 !important;
-}
-
-.no-margin-right
-{
-  margin-right: 0 !important;
-}
-
-.no-padding
-{
-  padding: 0 !important;
-}
-
-.no-padding-left
-{
-  padding-left: 0 !important;
-}
-
-.no-padding-right
-{
-  padding-right: 0 !important;
-}
-
-.align-items-center
-{
-  align-items: center;
 }
 
 h1, h2, h3, h4, h5
@@ -145,7 +109,6 @@ body
   |===================|
 */
 
-
 table
 {
     width: 100%;
@@ -190,6 +153,13 @@ tr td:first-child, tr:not(.vets):first-child td:last-child
 {
   text-decoration: underline;
 }
+
+/* ===================
+  |                   |
+  |      Toast        |
+  |                   |
+  |===================|
+*/
 
 .toast-color
 {

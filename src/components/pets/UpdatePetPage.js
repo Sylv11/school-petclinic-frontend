@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import '../../assets/css/index.css'
-import '../../assets/css/findOwner.css'
+import '../../assets/css/form.css'
 import '../../assets/css/pet.css'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import Loader from '../common/Loader'
+import Check from '../../Check'
 
 class UpdatePet extends Component {
 
@@ -25,7 +26,7 @@ class UpdatePet extends Component {
             .then((result) => {
                 this.setState({ pet: result.data, loading: false })
             })
-            .catch((err) => console.log(err))
+            .catch((err) => { })
     }
 
     getOwner = async () => {
@@ -52,29 +53,41 @@ class UpdatePet extends Component {
         }
 
         try {
-            await axios.put(`http://localhost:8080//updatePet/${pet.id}`, pet)
-            this.props.history.push({
-                pathname: `/ownerInformations/${this.state.owner.lastname}`,
-                state: {
-                    petUpdated: true
+            if (Check.isString(pet.name, 3)) {
+                if (Check.isDate(pet.dateBirth)) {
+                    if (Check.checkType(pet.type)) {
+                        await axios.put(`http://localhost:8080//updatePet/${pet.id}`, pet)
+                        this.props.history.push({
+                            pathname: `/ownerInformations/${this.state.owner.lastname}`,
+                            state: {
+                                petUpdated: true
+                            }
+                        })
+                    } else {
+                        Check.errorMessage('Invalid type!')
+                    }
+                } else {
+                    Check.errorMessage('Invalid date format!')
                 }
-            })
+            } else {
+                Check.errorMessage('name is not a string or to short!')
+            }
         } catch (err) {
             console.log(err)
         }
     }
 
     componentWillMount = () => {
-        this.setPet()     
+        this.setPet()
     }
 
     componentDidUpdate = () => {
-        if(!this.state.owner) {
+        if (!this.state.owner) {
             this.setOwner()
         }
-        
-        if(this.state.pet) {
-            switch(this.state.pet.type) {
+
+        if (this.state.pet) {
+            switch (this.state.pet.type) {
                 case 'cat': this.inputType.selectedIndex = 1; break;
                 case 'dog': this.inputType.selectedIndex = 2; break;
                 case 'hamster': this.inputType.selectedIndex = 3; break;
@@ -91,7 +104,7 @@ class UpdatePet extends Component {
             width: '55%',
             marginLeft: '0px'
         }
-    
+
         return (
             <div className='home-subcontainer'>
                 {!this.state.loading ?
