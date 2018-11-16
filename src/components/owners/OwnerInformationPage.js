@@ -86,31 +86,31 @@ export default class OwnerInformation extends Component {
         if (this.props.location.state) {
             switch (this.props.location.state.petType) {
                 case 'bird':
-                    this.emoji = '🦅'
+                    emoji = '🦅'
                     break
 
                 case 'cat':
-                    this.emoji = '🐱'
+                    emoji = '🐱'
                     break
 
                 case 'dog':
-                    this.emoji = '🐶'
+                    emoji = '🐶'
                     break
 
                 case 'hamster':
-                    this.emoji = '🐹'
+                    emoji = '🐹'
                     break
 
                 case 'lizard':
-                    this.emoji = '🦎'
+                    emoji = '🦎'
                     break
 
                 case 'snake':
-                    this.emoji = '🐍'
+                    emoji = '🐍'
                     break
 
                 default:
-                    this.emoji = '🐶'
+                    emoji = '🐶'
             }
             if (this.props.location.state) {
                 if (this.props.location.state.ownerAdded) {
@@ -126,13 +126,13 @@ export default class OwnerInformation extends Component {
                     });
                 }
                 if (this.props.location.state.petAdded) {
-                    toast(this.emoji + " Pet added!", {
+                    toast(emoji + " Pet added!", {
                         position: toast.POSITION.TOP_RIGHT,
                         className: 'toast-color'
                     });
                 }
                 if (this.props.location.state.petUpdated) {
-                    toast(this.emoji + " Pet updated!", {
+                    toast(emoji + " Pet updated!", {
                         position: toast.POSITION.TOP_RIGHT,
                         className: 'toast-color'
                     });
