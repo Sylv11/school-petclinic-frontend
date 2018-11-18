@@ -45,7 +45,6 @@ class UpdateOwner extends Component {
                             if (Check.isPhoneNumber(owner.telephone)) {
                                 this.setState({ loading: true })
                                 await axios.put(`http://localhost:8080/updateOwner/${owner.id}`, owner)
-                                this.setOwner()
                                 this.setState({ loading: false })
                                 this.props.history.push({
                                     pathname: `/ownerInformations/${owner.lastname}`,

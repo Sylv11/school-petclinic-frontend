@@ -3,8 +3,7 @@ import axios from 'axios'
 import Loader from '../common/Loader'
 import '../../assets/css/index.css'
 import '../../assets/css/modal.css'
-import classNames from 'classnames'
-import Pet from '../pets/Pet'
+import Pet from '../pets/common/Pet'
 import { toast } from 'react-toastify';
 
 export default class OwnerInformation extends Component {
@@ -13,8 +12,6 @@ export default class OwnerInformation extends Component {
         owner: null,
         pets: [],
         loading: false,
-        clickedOwner: false,
-        clickedPet: false,
         noPets: false
     }
 
@@ -61,20 +58,6 @@ export default class OwnerInformation extends Component {
                 this.title.style.display = 'none'
             })
 
-    }
-
-    getClassNamesOwner = () => {
-        return classNames({
-            'hidden': !this.state.clickedOwner,
-            'show': this.state.clickedOwner
-        });
-    }
-
-    getClassNamesPet = () => {
-        return classNames({
-            'hidden': !this.state.clickedPet,
-            'show': this.state.clickedPet
-        });
     }
 
     componentWillMount() {

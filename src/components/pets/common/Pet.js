@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import '../../assets/css/pet.css'
+import '../../../assets/css/pet.css'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-import Visit from '../visits/common/Visit'
+import Visit from '../../visits/common/Visit'
 
 class Pet extends Component {
 

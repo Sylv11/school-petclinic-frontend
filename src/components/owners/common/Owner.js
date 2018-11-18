@@ -6,15 +6,13 @@ import Loader from '../../common/Loader'
 class Owner extends Component {
 
     state = {
-        pets: null,
-        loading: false
+        pets: null
     }
 
     getPetsOfOwner = async () => {
         const ownerId = this.props.id
-        this.setState({ loading: true })
         const result = await axios.get(`http://localhost:8080/getPetsOfOwner/${ownerId}`)
-        return result
+        return await result
     }
 
     setPets = () => {
@@ -22,21 +20,20 @@ class Owner extends Component {
         this.getPetsOfOwner()
             .then((result) => {
                 result.data.forEach(pet => {
-                    if(!pets){
+                    if (!pets) {
                         pets = pet.name
-                    }else{
+                    } else {
                         pets += ', ' + pet.name
                     }
                 });
-                this.setState({ pets, loading: false })
+                this.setState({ pets })
             })
             .catch(err => this.setState({ pets: 'none' }))
     }
-    
+
     componentWillMount = () => {
-      this.setPets()
+        this.setPets()
     }
-    
 
     render() {
         const style = {
@@ -57,7 +54,7 @@ class Owner extends Component {
                     <span>{this.props.telephone}</span>
                 </td>
                 <td>
-                    <span>{this.state.pets ? this.state.pets : <Loader height={16} width={16}/>}</span>
+                    <span>{this.state.pets ? this.state.pets : <Loader height={16} width={16} />}</span>
                 </td>
             </tr>
         )

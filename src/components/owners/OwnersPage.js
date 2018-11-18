@@ -8,7 +8,6 @@ export default class Owners extends Component {
 
   state = {
     owners: [],
-    pets: [],
     loading: false
   }
 
@@ -19,10 +18,11 @@ export default class Owners extends Component {
   }
 
   setOwners = () => {
-    let owners = []
 
     this.getOwners()
       .then((result) => {
+        let owners = []
+
         result.data.forEach(owner => {
           owners.push(
             <Owner key={owner.telephone} {...owner} />
